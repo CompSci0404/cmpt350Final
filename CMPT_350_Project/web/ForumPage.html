@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Forum page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <body>
+        
+    <script type = "text/javascript">
+        
+     function joinGeneral(){
+         
+         var forumReq = "general_discussion"; 
+         
+         loadPage("GET","ForumManager?FORUM="+forumReq); 
+         
+     }
+     
+     function joinPoss(){
+         
+         var forumReq = "possession_aggression"; 
+         
+         loadPage("GET","ForumManager?FORUM="+forumReq); 
+         
+     }
+     
+    function joinCon(){
+         
+         var forumReq = "construction_cons"; 
+         
+         loadPage("GET","ForumManager?FORUM="+forumReq); 
+         
+     }
+     
+    function joinTable(){
+         
+         var forumReq = "tabletop_tyranny"; 
+         
+         loadPage("GET","ForumManager?FORUM="+forumReq); 
+         
+     }
+     
+
+
+    function loadPage(command,URL){
+        
+        var xhttp = new XMLHttpRequest(); 
+        
+        xhttp.onreadystatechange = function(){
+              if(this.readyState === 4 && this.status === 200){
+                  
+                    document.location.href = "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html"; 
+              }
+        
+        }; 
+        
+        xhttp.open(command, URL,true);
+        xhttp.send();
+        
+        
+    }
+        
+    </script>
+    
+    <h3><font color = "0090FF"> Berry Nice's Games: Forums page </font></h3>
+    
+    <div><Button onclick = "joinGeneral()">General Discussion</button></div>
+    <div><Button onclick = "joinPoss()">Possession Aggression</button></div>
+    <div><Button onclick = "joinCon()">Construction Cons( Opposing Forces)</button></div>
+    <div><Button onclick = "joinTable()">Tabletop Tyranny</button></div>
+        
+       
+    </body>
+</html>

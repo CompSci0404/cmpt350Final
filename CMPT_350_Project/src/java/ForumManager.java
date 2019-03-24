@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ForumManager extends HttpServlet {
 
+    static String forumSelected = null; 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,7 +56,13 @@ public class ForumManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        if(request.getParameter("FORUM") != null){
+            
+           forumSelected =  request.getParameter("FORUM");
+           System.out.println("hey we got a message from the webpage this is what we got for a message:" + forumSelected);
+        }
+        
     }
 
     /**
