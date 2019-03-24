@@ -17,6 +17,80 @@ body {
     padding: 0;
 }
 
+.container {
+   /* width: 1000px; */
+   margin: 0 auto;
+}
+
 .banner {
-    
+    background: #49547a;
+    display: grid;
+    height: 100%;
+}
+
+.bannerImg {
+    max-width: 100%;
+    max-height: vh;
+    margin: auto;
+}
+
+a img { /* remove the annoying blue border around image links */
+    border: none;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    /*color: */
+}
+
+li-span {
+    /*color: */
+}
+
+.links {
+    margin: auto;
+    width: 50%;
+}
+
+.links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.links li {
+    float: left; /* display the links as a horizontal bar */
+    margin: 0;
+    padding-right: 3px;
+}
+
+.links a { /* create boxes for the links and center their text within them */
+    text-decoration: none;
+    display: block;
+    background: #384263;
+    padding: 0.24em 1em;
+    color: #d3738f;
+    width: 8em;
+    height: 3em;
+    text-align: center;
+    line-height: 3em;
+}
+
+.links a:hover {
+    background: #465071;
+}
+
+.links #selected a {
+    position: relative;
+    background: #506085;
+    color: #e28ba5;
+    font-weight: bold;
+}
+
+.footer a {
+    text-decoration: none;
 }
