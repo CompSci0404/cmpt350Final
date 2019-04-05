@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Berry Nice Games</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <body>
+        <div class="container">
+        
+            <div class="banner">
+                <a href="index.html">
+                    <img src="images/Project_Banner.png" class="bannerImg" alt="Berry Nice Games">
+                </a>
+                <!-- a div used to display the webpage's banner image -->
+            </div>
+        
+            <div class="links">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li id="selected"><a href="shop.html">Shop</a></li>
+                    <li><a href="socialMedia.html">Social Media</a></li>
+                    <li><a href="forum.html">Forum</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            
+            <div class="content">
+                
+                <form class="checkoutForm">
+                    
+                    <ul>
+                        <li>
+                            First Name: <input type="text" name="fName" pattern="[A-Za-z]*">
+                            Last Name: <input type="text" name="lName" pattern="[A-Za-z]*">
+                        </li>
+                    
+                        <li>
+                            Country: <input type="text" name="country" pattern="[A-Za-z]*">
+                            Province: <input type="text" name="province" pattern="[A-Za-z]*">
+                        </li>
+                    
+                        <li>
+                            Credit Card Number: <input type="text" name="cardNumber" pattern="[0-9]{4} {0,1}[0-9]{4} {0,1}[0-9]{4} {0,1}[0-9]{4}">
+                            Expiration Date (mm/yy): <input type="text" name="expDate" pattern="[0-1][0-9]/[0-9]{2}">
+                            CVV: <input type="text" name="cvv" pattern="[0-9]{3}">
+                        </li>
+                    
+                        <li>
+                            <input type="submit" value="Confirm Purchase">
+                        </li>
+                    </ul>
+                </form>
+                
+            </div>
+            
+            <div class="push"></div>
+        
+        </div>
+        
+        <div class="footer">
+                <a href="https://www.facebook.com/">
+                    <img src="images/Facebook.png" width="30" height="30" alt="Facebook">
+                </a>
+                <a href="https://www.twitter.com">
+                    <img src="images/Twitter.png" width="30" height="30" alt="Twitter">
+                </a>
+            </div>
+        
+    </body>
+</html>

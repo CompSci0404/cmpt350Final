@@ -32,6 +32,14 @@ html, body {
     margin: auto;
 }
 
+.content * {
+    text-align: center;
+    color: #ffffff;
+    display: block;
+    margin: auto;
+    padding: 5px;
+}
+
 .banner {
     background: #49547a;
     display: grid;
@@ -140,4 +148,27 @@ li-span {
     float: left;
     margin: 0;
     padding-right: 10px;
+}
+
+.title {
+    padding-bottom: 10px;
+}
+
+.purchaseBtn {
+    border-radius: 12px;
+    padding: 10px;
+    background-color: #d3738f;
+}
+
+.purchaseBtn:hover {
+    background-color: #f2c4ef;
+}
+
+.purchaseBox {
+    font-weight: bold;
+}
+
+.checkoutForm input {
+    background-color: #384263;
+    display: inline-block;
 }
