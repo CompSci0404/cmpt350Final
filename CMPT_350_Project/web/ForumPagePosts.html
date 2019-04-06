@@ -20,14 +20,16 @@ and open the template in the editor.
         
         jQuery(document).ready(function(){
             
+            // when the user press the submit button call this method:
             $("#newPost").on('click', function(event){
                 
-                
+                // grab the contents from the two text values.
                 var title = jQuery('#title').val(); 
                 var post = jQuery('#post').val(); 
                 
                 alert(title + "yeeter");
                 
+                // if any of those fields are empty send a alarming message to them.
                 if(post == "") { 
                     
                     alert("please enter text into the post region before posting!"); 
@@ -38,13 +40,13 @@ and open the template in the editor.
                 } else {
                     
                     //"servlet2?DATA=" + data + "&BOARD=" + board
-                    $.post('ForumManager?TITLE='+ title + "&POST="+post, function(responseText){
+                    $.post('ForumManager?TITLE='+ title + "&POST="+post, function(responseText){    // send a post method to the forum manager.
                         
-                        jQuery('#title').val(' '); 
+                        jQuery('#title').val(' ');                                                  // set the data here to false.
                         
                         jQuery('#post').val(' '); 
                         
-                        $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPage.html");
+                        $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPage.html");  // return to the main forum page. To see your recent addition.
                         
                     
                     }); 

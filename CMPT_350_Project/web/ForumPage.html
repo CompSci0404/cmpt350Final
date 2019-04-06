@@ -12,16 +12,16 @@
   <script>
 // Jquery, works with phones, We are in phone age. So.... NEED IT.
 
-var gbl_ForumBoard = null; 
+
 jQuery(document).ready(function(){  
     
-
+    // checks when ever the tab changes, this will update its view.
   $(".nav-tabs a").click(function(){
      
     $(this).tab('show');    // THIS IS HOW I KNOW THEY CLICKED SOMETHING.
   });
   
-  
+  // when user clicks on a post already on the site, this is what will happen.
   $(".list-group a").click(function (){
       
     
@@ -30,9 +30,10 @@ jQuery(document).ready(function(){
   }); 
   
   
+  // a button, this will send the user to post a new post to the data base.
   $("#newPostGD").on('click', function(event) {
         var activeTab = $(".tab-content").find(".active"); 
-        var id = activeTab.attr('id'); 
+        var id = activeTab.attr('id');  // figure out the id for the certian tab, that we are on, this is the data base name.
     
       
             
@@ -43,7 +44,25 @@ jQuery(document).ready(function(){
                 
            });
             
-  }); 
+  });
+  
+  // when ever the window is currently loaded or refreshed etc, this will refresh all data on that window.
+  $(window).on("load", function () {
+      var activeTab = $(".tab-content").find(".active"); 
+        var id = activeTab.attr('id'); 
+    
+     //<a href = "#" class= "list-group-item">Post1?</a>
+     
+        $.get('ForumManager?FORUM='+id, function(responseText){
+            
+            $('.list-group').append("<a href = '#' class = 'list-group-item'>"+responseText+ "</a>"); 
+            
+        });
+      
+  });
+  
+  
+  
 
 });
 
@@ -66,6 +85,7 @@ border-color: #2F3E48;
 
 <body>
 
+ <!-- the tabs container from bootstrap, this will contain all the forum information.-->   
 <div class="container">
   <h2>Berry Nice Game Forums</h2>
   
@@ -84,11 +104,7 @@ border-color: #2F3E48;
       
       
       <div class = "list-group">
-          
-          <a href = "#" class= "list-group-item">Post1?</a>
-          
-          
-          
+        
       </div>    
           
       
