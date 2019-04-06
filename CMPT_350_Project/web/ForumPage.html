@@ -11,19 +11,54 @@
   
   <script>
 // Jquery, works with phones, We are in phone age. So.... NEED IT.
-$(document).ready(function(){   
+jQuery(document).ready(function(){  
+    
+
   $(".nav-tabs a").click(function(){
+     
     $(this).tab('show');    // THIS IS HOW I KNOW THEY CLICKED SOMETHING.
+    
+    
   });
+  
+  
+  $(".list-group a").click(function (){
+      
+    
+    $(location).attr('href', "http://localhost:8080/CMPT_350_Project/");  // click to make new posts!
+      
+  }); 
+  
+  
+  $("#newPostGD").on('click', function(event) {
+        
+            $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html");
+  }); 
+
 });
 
 </script>
-  
+
+<style type = "text/css">
+.bnt-primary
+{
+ 
+background-color: #6600A1;
+ 
+color:#FFF;
+ 
+border-color: #2F3E48;
+ 
+}
+
+</style>
 </head>
+
 <body>
 
 <div class="container">
   <h2>Berry Nice Game Forums</h2>
+  
   <ul class="nav nav-tabs">
     <li class="active"><a href="#GD">General Discussion</a></li>
     <li><a href="#TTT">Table Top Tyranny</a></li>
@@ -35,10 +70,24 @@ $(document).ready(function(){
     <div id="GD" class="tab-pane fade in active">
       <h3>General Discussion</h3>
       
+      <button type = "button" id = "newPostGD" class = "btn bnt-primary btn-md">create new post:</button>
+      
+      
+      <div class = "list-group">
+          
+          <a href = "#" class= "list-group-item">Post1?</a>
+          
+          
+          
+      </div>    
+          
+      
     </div>
     <div id="TTT" class="tab-pane fade">
       <h3>Table Top Tyranny</h3>
       
+     
+
     </div>
     <div id="CC" class="tab-pane fade">
       <h3>Construction Cons</h3>
@@ -49,6 +98,9 @@ $(document).ready(function(){
     </div>
   </div>
 </div>
+          <small id = "test"></small>
 
+    
+    
 </body>
 </html>
