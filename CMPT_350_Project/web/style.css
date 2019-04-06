@@ -172,3 +172,7 @@ li-span {
     background-color: #384263;
     display: inline-block;
 }
+
+.spacer {
+  padding: 20px;  
+}
