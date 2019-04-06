@@ -22,9 +22,11 @@ jQuery(document).ready(function(){
   });
   
   // when user clicks on a post already on the site, this is what will happen.
-  $(".list-group a").click(function (){
+  $(".list-group").on('click', function (event){
       
+    $(this).addClass('active'); 
     
+    alert("POG?");
     $(location).attr('href', "http://localhost:8080/CMPT_350_Project/");  // click to make new posts!
       
   }); 
@@ -55,7 +57,25 @@ jQuery(document).ready(function(){
      
         $.get('ForumManager?FORUM='+id, function(responseText){
             
-            $('.list-group').append("<a href = '#' class = 'list-group-item'>"+responseText+ "</a>"); 
+            
+            var titles = responseText.split('\n');
+            
+            var counter = 0; 
+            
+            while(counter < titles.length) {    // need to split text up,
+                
+                
+                if(titles[counter] !== '\n' && titles[counter] !== '\r' && titles[counter] !== ''){
+                    
+                    // will need to split this string up later to add correct number of posts.
+                    $('.list-group').append("<a herf='#' class = 'list-group-item'>"+titles[counter]+ "</a>");
+                 }
+                
+                counter += 1; 
+            }
+            
+
+            
             
         });
       
@@ -72,7 +92,7 @@ jQuery(document).ready(function(){
 .bnt-primary
 {
  
-background-color: #6600A1;
+background-color: #0996DC;
  
 color:#FFF;
  
@@ -98,7 +118,7 @@ border-color: #2F3E48;
 
   <div class="tab-content">
     <div id="GD" class="tab-pane fade in active">
-      <h3>General Discussion</h3>
+      <h3>General Discussion:</h3>
       
       <button type = "button" id = "newPostGD" class = "btn bnt-primary btn-md">create new post:</button>
       
@@ -110,17 +130,17 @@ border-color: #2F3E48;
       
     </div>
     <div id="TTT" class="tab-pane fade">
-      <h3>Table Top Tyranny</h3>
+      <h3>Table Top Tyranny:</h3>
       
      
 
     </div>
     <div id="CC" class="tab-pane fade">
-      <h3>Construction Cons</h3>
+      <h3>Construction Cons:</h3>
       
     </div>
     <div id="PA" class="tab-pane fade">
-      <h3>Possession Aggression</h3>
+      <h3>Possession Aggression:</h3>
     </div>
   </div>
 </div>
