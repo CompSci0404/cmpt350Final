@@ -1,81 +1,54 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Forum page</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<html lang="en">
+<head>
     
-    <body>
-        
-    <script type = "text/javascript">
-        
-     function joinGeneral(){
-         
-         var forumReq = "general_discussion"; 
-         
-         loadPage("GET","ForumManager?FORUM="+forumReq); 
-         
-     }
-     
-     function joinPoss(){
-         
-         var forumReq = "possession_aggression"; 
-         
-         loadPage("GET","ForumManager?FORUM="+forumReq); 
-         
-     }
-     
-    function joinCon(){
-         
-         var forumReq = "construction_cons"; 
-         
-         loadPage("GET","ForumManager?FORUM="+forumReq); 
-         
-     }
-     
-    function joinTable(){
-         
-         var forumReq = "tabletop_tyranny"; 
-         
-         loadPage("GET","ForumManager?FORUM="+forumReq); 
-         
-     }
-     
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  <script>
+// Jquery, works with phones, We are in phone age. So.... NEED IT.
+$(document).ready(function(){   
+  $(".nav-tabs a").click(function(){
+    $(this).tab('show');    // THIS IS HOW I KNOW THEY CLICKED SOMETHING.
+  });
+});
 
+</script>
+  
+</head>
+<body>
 
-    function loadPage(command,URL){
-        
-        var xhttp = new XMLHttpRequest(); 
-        
-        xhttp.onreadystatechange = function(){
-              if(this.readyState === 4 && this.status === 200){
-                  
-                    document.location.href = "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html"; 
-              }
-        
-        }; 
-        
-        xhttp.open(command, URL,true);
-        xhttp.send();
-        
-        
-    }
-        
-    </script>
-    
-    <h3><font color = "0090FF"> Berry Nice's Games: Forums page </font></h3>
-    
-    <div><Button onclick = "joinGeneral()">General Discussion</button></div>
-    <div><Button onclick = "joinPoss()">Possession Aggression</button></div>
-    <div><Button onclick = "joinCon()">Construction Cons( Opposing Forces)</button></div>
-    <div><Button onclick = "joinTable()">Tabletop Tyranny</button></div>
-        
-       
-    </body>
+<div class="container">
+  <h2>Berry Nice Game Forums</h2>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#GD">General Discussion</a></li>
+    <li><a href="#TTT">Table Top Tyranny</a></li>
+    <li><a href="#CC">Construction Cons</a></li>
+    <li><a href="#PA">Possession Aggression</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="GD" class="tab-pane fade in active">
+      <h3>General Discussion</h3>
+      
+    </div>
+    <div id="TTT" class="tab-pane fade">
+      <h3>Table Top Tyranny</h3>
+      
+    </div>
+    <div id="CC" class="tab-pane fade">
+      <h3>Construction Cons</h3>
+      
+    </div>
+    <div id="PA" class="tab-pane fade">
+      <h3>Possession Aggression</h3>
+    </div>
+  </div>
+</div>
+
+</body>
 </html>
