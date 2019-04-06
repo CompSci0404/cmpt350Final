@@ -21,17 +21,7 @@ jQuery(document).ready(function(){
     $(this).tab('show');    // THIS IS HOW I KNOW THEY CLICKED SOMETHING.
   });
   
-  // when user clicks on a post already on the site, this is what will happen.
-  $(".list-group").on('click', function (event){
-      
-    $(this).addClass('active'); 
-    
-    alert("POG?");
-    $(location).attr('href', "http://localhost:8080/CMPT_350_Project/");  // click to make new posts!
-      
-  }); 
-  
-  
+ 
   // a button, this will send the user to post a new post to the data base.
   $("#newPostGD").on('click', function(event) {
         var activeTab = $(".tab-content").find(".active"); 
@@ -47,6 +37,18 @@ jQuery(document).ready(function(){
            });
             
   });
+  
+  
+ $('.list-group-item').on('click', function() {
+     
+    var $this = $(this);
+    var $alias = $this.data('alias');
+
+    $('.active').removeClass('active');
+    $this.toggleClass('active')
+
+    alert();
+   });
   
   // when ever the window is currently loaded or refreshed etc, this will refresh all data on that window.
   $(window).on("load", function () {
@@ -67,8 +69,9 @@ jQuery(document).ready(function(){
                 
                 if(titles[counter] !== '\n' && titles[counter] !== '\r' && titles[counter] !== ''){
                     
+                    // can I search by title? in herf?
                     // will need to split this string up later to add correct number of posts.
-                    $('.list-group').append("<a herf='#' class = 'list-group-item'>"+titles[counter]+ "</a>");
+                    $('.list-group').append("<a herf='#' class = 'list-group-item'><h4 class='list-group-item-heading'>"+titles[counter]+"</h4></a>");
                  }
                 
                 counter += 1; 
@@ -123,8 +126,7 @@ border-color: #2F3E48;
       <button type = "button" id = "newPostGD" class = "btn bnt-primary btn-md">create new post:</button>
       
       
-      <div class = "list-group">
-        
+      <div class = "list-group">          
       </div>    
           
       
