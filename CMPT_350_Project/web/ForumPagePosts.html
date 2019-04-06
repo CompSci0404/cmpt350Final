@@ -4,13 +4,83 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
+<!--@joel add some cool art stuff please :) good job bubbi <3 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Post to Forums:</title>
+        
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+   
+    <script>
+        
+        jQuery(document).ready(function(){
+            
+            $("#newPost").on('click', function(event){
+                
+                
+                var title = jQuery('#title').val(); 
+                var post = jQuery('#post').val(); 
+                
+                alert(title + "yeeter");
+                
+                if(post == "") { 
+                    
+                    alert("please enter text into the post region before posting!"); 
+      
+                } else if(title == "") {
+                    
+                    alert("please give your post a title before posting!"); 
+                } else {
+                    
+                    //"servlet2?DATA=" + data + "&BOARD=" + board
+                    $.post('ForumManager?TITLE='+ title + "&POST="+post, function(responseText){
+                        
+                        jQuery('#title').val(' '); 
+                        
+                        jQuery('#post').val(' '); 
+                        
+                        $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPage.html");
+                        
+                    
+                    }); 
+                    
+                }
+                
+                
+                
+            }); 
+            
+            
+            
+        }); 
+        
+        
+    </script>
+    
     </head>
     <body>
-        <div>TODO write content</div>
+        
+       
+        <div class = "form-group">
+        
+        <h2> Title:</h2> 
+        <textarea class = "form-control" rows = "1" id = "title"></textArea>
+        
+            
+        <h4>Post Content:</h4>
+        <textarea class = "form-control" rows = "10" id ="post"></textArea>
+        </div>
+        
+        <button type = "button" id = "newPost" class = "btn bnt-primary btn-md">post:</button>
+
+        
+        
+        
+        
     </body>
 </html>

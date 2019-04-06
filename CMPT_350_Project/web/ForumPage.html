@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     
-  <title>Bootstrap Example</title>
+  <title>Forums</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -11,14 +11,14 @@
   
   <script>
 // Jquery, works with phones, We are in phone age. So.... NEED IT.
+
+var gbl_ForumBoard = null; 
 jQuery(document).ready(function(){  
     
 
   $(".nav-tabs a").click(function(){
      
     $(this).tab('show');    // THIS IS HOW I KNOW THEY CLICKED SOMETHING.
-    
-    
   });
   
   
@@ -31,8 +31,18 @@ jQuery(document).ready(function(){
   
   
   $("#newPostGD").on('click', function(event) {
-        
-            $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html");
+        var activeTab = $(".tab-content").find(".active"); 
+        var id = activeTab.attr('id'); 
+    
+      
+            
+            $.get('ForumManager?FORUM='+ id, function(responseText){
+                
+                $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html");
+
+                
+           });
+            
   }); 
 
 });
