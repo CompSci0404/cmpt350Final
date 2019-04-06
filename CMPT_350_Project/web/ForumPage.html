@@ -1,81 +1,154 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Forum page</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<html lang="en">
+<head>
     
-    <body>
-        
-    <script type = "text/javascript">
-        
-     function joinGeneral(){
-         
-         var forumReq = "general_discussion"; 
-         
-         loadPage("GET","ForumManager?FORUM="+forumReq); 
-         
-     }
-     
-     function joinPoss(){
-         
-         var forumReq = "possession_aggression"; 
-         
-         loadPage("GET","ForumManager?FORUM="+forumReq); 
-         
-     }
-     
-    function joinCon(){
-         
-         var forumReq = "construction_cons"; 
-         
-         loadPage("GET","ForumManager?FORUM="+forumReq); 
-         
-     }
-     
-    function joinTable(){
-         
-         var forumReq = "tabletop_tyranny"; 
-         
-         loadPage("GET","ForumManager?FORUM="+forumReq); 
-         
-     }
-     
+  <title>Forums</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  <script>
+// Jquery, works with phones, We are in phone age. So.... NEED IT.
 
 
-    function loadPage(command,URL){
-        
-        var xhttp = new XMLHttpRequest(); 
-        
-        xhttp.onreadystatechange = function(){
-              if(this.readyState === 4 && this.status === 200){
-                  
-                    document.location.href = "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html"; 
-              }
-        
-        }; 
-        
-        xhttp.open(command, URL,true);
-        xhttp.send();
-        
-        
-    }
-        
-    </script>
+jQuery(document).ready(function(){  
     
-    <h3><font color = "0090FF"> Berry Nice's Games: Forums page </font></h3>
+    // checks when ever the tab changes, this will update its view.
+  $(".nav-tabs a").click(function(){
+     
+    $(this).tab('show');    // THIS IS HOW I KNOW THEY CLICKED SOMETHING.
+  });
+  
+ 
+  // a button, this will send the user to post a new post to the data base.
+  $("#newPostGD").on('click', function(event) {
+        var activeTab = $(".tab-content").find(".active"); 
+        var id = activeTab.attr('id');  // figure out the id for the certian tab, that we are on, this is the data base name.
     
-    <div><Button onclick = "joinGeneral()">General Discussion</button></div>
-    <div><Button onclick = "joinPoss()">Possession Aggression</button></div>
-    <div><Button onclick = "joinCon()">Construction Cons( Opposing Forces)</button></div>
-    <div><Button onclick = "joinTable()">Tabletop Tyranny</button></div>
-        
-       
-    </body>
+      
+            
+            $.get('ForumManager?FORUM='+ id, function(responseText){
+                
+                $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html");
+
+                
+           });
+            
+  });
+  
+  
+ $('.list-group-item').on('click', function() {
+     
+    var $this = $(this);
+    var $alias = $this.data('alias');
+
+    $('.active').removeClass('active');
+    $this.toggleClass('active')
+
+    alert();
+   });
+  
+  // when ever the window is currently loaded or refreshed etc, this will refresh all data on that window.
+  $(window).on("load", function () {
+      var activeTab = $(".tab-content").find(".active"); 
+        var id = activeTab.attr('id'); 
+    
+     //<a href = "#" class= "list-group-item">Post1?</a>
+     
+        $.get('ForumManager?FORUM='+id, function(responseText){
+            
+            
+            var titles = responseText.split('\n');
+            
+            var counter = 0; 
+            
+            while(counter < titles.length) {    // need to split text up,
+                
+                
+                if(titles[counter] !== '\n' && titles[counter] !== '\r' && titles[counter] !== ''){
+                    
+                    // can I search by title? in herf?
+                    // will need to split this string up later to add correct number of posts.
+                    $('.list-group').append("<a herf='#' class = 'list-group-item'><h4 class='list-group-item-heading'>"+titles[counter]+"</h4></a>");
+                 }
+                
+                counter += 1; 
+            }
+            
+
+            
+            
+        });
+      
+  });
+  
+  
+  
+
+});
+
+</script>
+
+<style type = "text/css">
+.bnt-primary
+{
+ 
+background-color: #0996DC;
+ 
+color:#FFF;
+ 
+border-color: #2F3E48;
+ 
+}
+
+</style>
+</head>
+
+<body>
+
+ <!-- the tabs container from bootstrap, this will contain all the forum information.-->   
+<div class="container">
+  <h2>Berry Nice Game Forums</h2>
+  
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#GD">General Discussion</a></li>
+    <li><a href="#TTT">Table Top Tyranny</a></li>
+    <li><a href="#CC">Construction Cons</a></li>
+    <li><a href="#PA">Possession Aggression</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="GD" class="tab-pane fade in active">
+      <h3>General Discussion:</h3>
+      
+      <button type = "button" id = "newPostGD" class = "btn bnt-primary btn-md">create new post:</button>
+      
+      
+      <div class = "list-group">          
+      </div>    
+          
+      
+    </div>
+    <div id="TTT" class="tab-pane fade">
+      <h3>Table Top Tyranny:</h3>
+      
+     
+
+    </div>
+    <div id="CC" class="tab-pane fade">
+      <h3>Construction Cons:</h3>
+      
+    </div>
+    <div id="PA" class="tab-pane fade">
+      <h3>Possession Aggression:</h3>
+    </div>
+  </div>
+</div>
+          <small id = "test"></small>
+
+    
+    
+</body>
 </html>
