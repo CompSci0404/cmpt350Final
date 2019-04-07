@@ -26,9 +26,7 @@ jQuery(document).ready(function(){
   $("#newPostGD").on('click', function(event) {
         var activeTab = $(".tab-content").find(".active"); 
         var id = activeTab.attr('id');  // figure out the id for the certian tab, that we are on, this is the data base name.
-    
-      
-            
+              
             $.get('ForumManager?FORUM='+ id, function(responseText){
                 
                 $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html");
@@ -41,8 +39,17 @@ jQuery(document).ready(function(){
   
   $('.list-group').on('click', '.list-group-item', function(event){ 
       
-        alert($(this).text());
-      
+        var title = $(this).text()
+        var activeTab = $(".tab-content").find(".active"); 
+        var id = activeTab.attr('id'); 
+        
+        $.get('addOntoPost?FORUM='+id + "&TITLE="+title, function(responseText){
+            
+            $(location).attr('href',"http://localhost:8080/CMPT_350_Project/readPosts.html" );
+        
+        }); 
+        
+        
   }); 
   
   
@@ -53,6 +60,7 @@ jQuery(document).ready(function(){
     
      //<a href = "#" class= "list-group-item">Post1?</a>
      
+        
         $.get('ForumManager?FORUM='+id, function(responseText){
             
             
@@ -121,7 +129,7 @@ border-color: #2F3E48;
       
       <button type = "button" id = "newPostGD" class = "btn bnt-primary btn-md">create new post:</button>
       
-      <div></div>
+      
       <div id = forumCluster class = "list-group"> 
           
        <!-- <a href = '#pog' class= 'list-group-item'>Post1?</a> -->
