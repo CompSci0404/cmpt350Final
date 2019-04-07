@@ -29,6 +29,7 @@ and open the template in the editor.
       #location3 { position: absolute; visibility: visible; left: 300px; top: 275px; z-index: 200;}
       #location4 { position: absolute; visibility: visible; left: 100px; top: 70px; z-index: 200;}
       #location5 { position: absolute; visibility: visible; left: 130px; top: 170px; z-index: 200;}
+      #location6 { position: absolute; visibility: visible; left: 130px; top: 170px; z-index: 200;}
 </style> 
   
     </head>
@@ -46,13 +47,19 @@ and open the template in the editor.
         </div>
         
         <div id = "location3"><small id = "time"><b><i> Time Posted: </i></b></small></div>
-        
+        <div></div>
         
         
         <script>
       
     jQuery(document).ready(function() {
        
+       
+       
+       
+       
+        
+        
         
     $(window).on("load", function () {
        
@@ -68,7 +75,6 @@ and open the template in the editor.
             $('#post').text(titles[1]);
             $('#time').text(titles[2]);
             $('#name').text(titles[3]);
-           
            
    
          });
