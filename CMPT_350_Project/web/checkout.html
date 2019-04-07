@@ -59,7 +59,11 @@ and open the template in the editor.
                     </ul>
                 </form>
                 
-                <p id ="reciept">test</p>
+                <h3>Your game code will be displayed below once your payment has been processed:</h3>
+                
+                <br>
+                
+                <p id ="reciept"></p>
                 
             </div>
             
@@ -96,7 +100,7 @@ and open the template in the editor.
                 xhttp.onreadystatechange = function(){
                    if(this.readyState === 4 && this.status === 200){
                        // update page / display video game download code
-                       document.getElementById("reciept").value = this.responseText;
+                       document.getElementById("reciept").innerHTML = this.responseText;
                    }
                };
                

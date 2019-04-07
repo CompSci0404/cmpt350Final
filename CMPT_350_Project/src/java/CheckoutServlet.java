@@ -6,11 +6,15 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.codec.binary.Base64;
 
 /**
  *
@@ -79,30 +83,79 @@ public class CheckoutServlet extends HttpServlet {
         String expDate = request.getParameter("EXPDATE");
         String cvv = request.getParameter("CVV");
         
+        // generate a unique game code
         String gameCode = UUID.randomUUID().toString();
         
-        System.out.println(firstName);
-        System.out.println(lastName);
-        System.out.println(country);
-        System.out.println(province);
-        System.out.println(cardNumber);
-        System.out.println(expDate);
-        System.out.println(cvv);
+        // encode the user's information
+        byte[] firstNameEncoded = Base64.encodeBase64(firstName.getBytes());
+        byte[] lastNameEncoded = Base64.encodeBase64(lastName.getBytes());
+        byte[] countryEncoded = Base64.encodeBase64(country.getBytes());
+        byte[] provinceEncoded = Base64.encodeBase64(province.getBytes());
+        byte[] cardNumberEncoded = Base64.encodeBase64(cardNumber.getBytes());
+        byte[] expDateEncoded = Base64.encodeBase64(expDate.getBytes());
+        byte[] cvvEncoded = Base64.encodeBase64(cvv.getBytes());
         
-        System.out.println(gameCode);
+        System.out.println(new String(firstNameEncoded));
+        System.out.println(new String(lastNameEncoded));
+        System.out.println(new String(countryEncoded));
+        System.out.println(new String(provinceEncoded));
+        System.out.println(new String(cardNumberEncoded));
+        System.out.println(new String(expDateEncoded));
+        System.out.println(new String(cvvEncoded));
+        
+        // decode the user's information
+        byte[] firstNameDecoded = Base64.decodeBase64(firstNameEncoded);
+        byte[] lastNameDecoded = Base64.decodeBase64(lastNameEncoded);
+        byte[] countryDecoded = Base64.decodeBase64(countryEncoded);
+        byte[] provinceDecoded = Base64.decodeBase64(provinceEncoded);
+        byte[] cardNumberDecoded = Base64.decodeBase64(cardNumberEncoded);
+        byte[] expDateDecoded = Base64.decodeBase64(expDateEncoded);
+        byte[] cvvDecoded = Base64.decodeBase64(cvvEncoded);
+        
+        System.out.println(new String(firstNameDecoded));
+        System.out.println(new String(lastNameDecoded));
+        System.out.println(new String(countryDecoded));
+        System.out.println(new String(provinceDecoded));
+        System.out.println(new String(cardNumberDecoded));
+        System.out.println(new String(expDateDecoded));
+        System.out.println(new String(cvvDecoded));
+        
+        Connection conn = createConnection(); // connect to the paymentInfo database
         
         response.setContentType("text/html");
         try (PrintWriter out = response.getWriter()) {
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Reciept</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<p>" + firstName + "</p>");
-            out.println("</body>");
-            out.println("</html>");
+            Statement state = conn.createStatement();
+            
+            state.execute("INSERT INTO "+ "purchaseInfo" +"(firstName, lastName, country, province, cardNumber, expDate, cvv) VALUES ('"+firstNameEncoded+"','"+lastNameEncoded+"','"+countryEncoded+"','"+provinceEncoded+"','"+cardNumberEncoded+"','"+expDateEncoded+"','"+cvvEncoded+"')");
+            
+            out.println(gameCode);
+        }   
+        catch(Exception e) { 
+            
+            System.err.println("we got ourselves a bad error:" + e);
+        }       
+    }
+    
+    /**
+     * creates a connection to the data base so we can store data there. 
+     * 
+     * @return  returns a successful connection to the data base for this website.
+     */
+     public static Connection createConnection(){
+        
+        Connection conn = null; 
+        
+        try{
+            
+             Class.forName("com.mysql.jdbc.Driver");
+             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/finalproj", "root", "yeet0404");  // connect to the msql server. 
+          
+        }catch(Exception e){
+            
+            System.err.println("exception was caught: " + e);
         }
         
+        return conn; 
     }
 
     /**

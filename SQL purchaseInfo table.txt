@@ -1,0 +1,9 @@
+create table purchaseInfo (
+firstName VARCHAR(20),
+lastName VARCHAR(20),
+country VARCHAR(20),
+province VARCHAR(20),
+cardNumber VARCHAR(20),
+expDate VARCHAR(20),
+cvv VARCHAR(20)
+);
