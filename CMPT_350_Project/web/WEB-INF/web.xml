@@ -4,18 +4,33 @@
         <servlet-name>ForumManager</servlet-name>
         <servlet-class>ForumManager</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>addOntoPost</servlet-name>
+        <servlet-class>addOntoPost</servlet-class>
+    </servlet>
+ 
     <servlet>
         <servlet-name>CheckoutServlet</servlet-name>
         <servlet-class>CheckoutServlet</servlet-class>
     </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>addOntoPost</servlet-name>
+        <url-pattern>/addOntoPost</url-pattern>
+    </servlet-mapping>
+    
+    
     <servlet-mapping>
         <servlet-name>ForumManager</servlet-name>
         <url-pattern>/ForumManager</url-pattern>
     </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>CheckoutServlet</servlet-name>
         <url-pattern>/CheckoutServlet</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

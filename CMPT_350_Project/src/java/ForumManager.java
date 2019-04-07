@@ -150,6 +150,8 @@ public class ForumManager extends HttpServlet {
            
            ResultSet resultSet = state.executeQuery("SELECT * FROM "+forumSelected);   // command ran on the data base.
            
+           System.out.println("returning forums for" +forumSelected);
+           
             while( resultSet.next()){                                                   // aquire all items from the data base until their is nothing left.
               
               allItemsInThisColumn += resultSet.getString("title") + "\n";                    // add to string, so we can send it to the webpage.

@@ -16,9 +16,71 @@
 jQuery(document).ready(function(){  
     
     // checks when ever the tab changes, this will update its view.
-  $(".nav-tabs a").click(function(){
+  $(".nav-tabs a").click( function(event){
      
-    $(this).tab('show');    // THIS IS HOW I KNOW THEY CLICKED SOMETHING.
+     var href = $(this).attr('href');
+    $('.nav-tabs a').removeClass('active');
+    
+    $('.nav-tabs a[href="'+href+'"]').tab('show');
+
+    
+    
+    
+     var activeTab = $(".tab-content").find(".active"); 
+     var id = activeTab.attr('id');  
+    
+     var h = href.split('#');
+     
+     $.get('ForumManager?FORUM='+ h[h.length-1], function(responseText){
+            
+            $('#TTTList').empty();
+            $('#forumCluster').empty();
+            $('#CCList').empty();
+            $('#PAList').empty();
+            
+            var titles = responseText.split('\n');
+            
+            var counter = 0; 
+            
+            while(counter < titles.length) {    // need to split text up,
+                
+                
+                if(titles[counter] !== '\n' && titles[counter] !== '\r' && titles[counter] !== ''){
+                    
+                    if(h[h.length-1] == "TTT") { 
+                       
+                         // can I search by title? in herf?
+                        // will need to split this string up later to add correct number of posts.
+                        $("<a href= '#' class = 'list-group-item'><h4 class = 'list-group-item-heading'>"+titles[counter]+"</h4></a>").appendTo('#TTTList');
+                    }
+                    
+                    if(h[h.length-1] == "GD") { 
+                        
+                        $("<a href= '#' class = 'list-group-item'><h4 class = 'list-group-item-heading'>"+titles[counter]+"</h4></a>").appendTo('#forumCluster');
+                        
+                    }
+                    
+                    if(h[h.length-1] == "CC") { 
+                        
+                        $("<a href= '#' class = 'list-group-item'><h4 class = 'list-group-item-heading'>"+titles[counter]+"</h4></a>").appendTo('#CCList');
+
+                    }
+                    
+                    if(h[h.length-1] == "PA") { 
+                        
+                        $("<a href= '#' class = 'list-group-item'><h4 class = 'list-group-item-heading'>"+titles[counter]+"</h4></a>").appendTo('#PAList');
+
+                    }
+                    
+                 }
+                
+                counter += 1; 
+            }
+            
+    
+    });
+  
+        
   });
   
  
@@ -26,9 +88,7 @@ jQuery(document).ready(function(){
   $("#newPostGD").on('click', function(event) {
         var activeTab = $(".tab-content").find(".active"); 
         var id = activeTab.attr('id');  // figure out the id for the certian tab, that we are on, this is the data base name.
-    
-      
-            
+              
             $.get('ForumManager?FORUM='+ id, function(responseText){
                 
                 $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html");
@@ -39,16 +99,66 @@ jQuery(document).ready(function(){
   });
   
   
- $('.list-group-item').on('click', function() {
-     
-    var $this = $(this);
-    var $alias = $this.data('alias');
+  // a button, this will send the user to post a new post to the data base.
+  $("#newPostTTT").on('click', function(event) {
+        var activeTab = $(".tab-content").find(".active"); 
+        var id = activeTab.attr('id');  // figure out the id for the certian tab, that we are on, this is the data base name.
+              
+            $.get('ForumManager?FORUM='+ id, function(responseText){
+                
+                $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html");
 
-    $('.active').removeClass('active');
-    $this.toggleClass('active')
+                
+           });
+            
+  });
+  
+  
+  // a button, this will send the user to post a new post to the data base.
+  $("#newPostCC").on('click', function(event) {
+        var activeTab = $(".tab-content").find(".active"); 
+        var id = activeTab.attr('id');  // figure out the id for the certian tab, that we are on, this is the data base name.
+              
+            $.get('ForumManager?FORUM='+ id, function(responseText){
+                
+                $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html");
 
-    alert();
-   });
+                
+           });
+            
+  });
+  
+  
+    // a button, this will send the user to post a new post to the data base.
+  $("#newPostPA").on('click', function(event) {
+        var activeTab = $(".tab-content").find(".active"); 
+        var id = activeTab.attr('id');  // figure out the id for the certian tab, that we are on, this is the data base name.
+              
+            $.get('ForumManager?FORUM='+ id, function(responseText){
+                
+                $(location).attr('href', "http://localhost:8080/CMPT_350_Project/ForumPagePosts.html");
+
+                
+           });
+            
+  });
+  
+  
+  $('.list-group').on('click', '.list-group-item', function(event){ 
+      
+        var title = $(this).text()
+        var activeTab = $(".tab-content").find(".active"); 
+        var id = activeTab.attr('id'); 
+        
+        $.get('addOntoPost?FORUM='+id + "&TITLE="+title, function(responseText){
+            
+            $(location).attr('href',"http://localhost:8080/CMPT_350_Project/readPosts.html" );
+        
+        }); 
+        
+        
+  }); 
+  
   
   // when ever the window is currently loaded or refreshed etc, this will refresh all data on that window.
   $(window).on("load", function () {
@@ -57,6 +167,7 @@ jQuery(document).ready(function(){
     
      //<a href = "#" class= "list-group-item">Post1?</a>
      
+        
         $.get('ForumManager?FORUM='+id, function(responseText){
             
             
@@ -71,7 +182,7 @@ jQuery(document).ready(function(){
                     
                     // can I search by title? in herf?
                     // will need to split this string up later to add correct number of posts.
-                    $('.list-group').append("<a herf='#' class = 'list-group-item'><h4 class='list-group-item-heading'>"+titles[counter]+"</h4></a>");
+                  $("<a href= '#' class = 'list-group-item'><h4 class = 'list-group-item-heading'>"+titles[counter]+"</h4></a>").appendTo('#forumCluster');
                  }
                 
                 counter += 1; 
@@ -113,36 +224,70 @@ border-color: #2F3E48;
   <h2>Berry Nice Game Forums</h2>
   
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#GD">General Discussion</a></li>
-    <li><a href="#TTT">Table Top Tyranny</a></li>
-    <li><a href="#CC">Construction Cons</a></li>
-    <li><a href="#PA">Possession Aggression</a></li>
+    <li><a href="#GD" data-toggle = "tab">General Discussion</a></li>
+    <li><a href="#TTT" data-toggle = "tab">Table Top Tyranny</a></li>
+    <li><a href="#CC" data-toggle = "tab">Construction Cons</a></li>
+    <li><a href="#PA" data-toggle = "tab">Possession Aggression</a></li>
   </ul>
 
   <div class="tab-content">
-    <div id="GD" class="tab-pane fade in active">
+    <div id="GD" class="tab-pane active">
       <h3>General Discussion:</h3>
       
       <button type = "button" id = "newPostGD" class = "btn bnt-primary btn-md">create new post:</button>
       
       
-      <div class = "list-group">          
+      <div id = forumCluster class = "list-group"> 
+          
+       <!-- <a href = '#pog' class= 'list-group-item'>Post1?</a> -->
+          
       </div>    
           
       
     </div>
+      
     <div id="TTT" class="tab-pane fade">
       <h3>Table Top Tyranny:</h3>
       
-     
+        <button type = "button" id = "newPostTTT" class = "btn bnt-primary btn-md">create new post:</button>
+        
+        
+         <div id = "TTTList" class = "list-group"> 
+          
+        <!-- <a href = '#pog' class= 'list-group-item'>Post1?</a> -->
+          
+        </div>  
 
     </div>
+      
     <div id="CC" class="tab-pane fade">
       <h3>Construction Cons:</h3>
+        <button type = "button" id = "newPostCC" class = "btn bnt-primary btn-md">create new post:</button>
+        
+        
+         <div id = "CCList" class = "list-group"> 
+          
+        <!-- <a href = '#pog' class= 'list-group-item'>Post1?</a> -->
+          
+        </div>  
       
     </div>
+      
     <div id="PA" class="tab-pane fade">
       <h3>Possession Aggression:</h3>
+      
+      <button type = "button" id = "newPostPA" class = "btn bnt-primary btn-md">create new post:</button>
+        
+        
+         <div id = "PAList" class = "list-group"> 
+          
+        <!-- <a href = '#pog' class= 'list-group-item'>Post1?</a> -->
+          
+        </div>  
+      
+      
+      
+      
     </div>
   </div>
 </div>
