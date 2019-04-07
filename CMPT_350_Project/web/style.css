@@ -75,7 +75,9 @@ li-span {
 
 .links {
     margin: auto;
+    display: block;
     width: 50%;
+    text-align: center;
 }
 
 .links ul {
@@ -85,9 +87,10 @@ li-span {
 }
 
 .links li {
-    float: left; /* display the links as a horizontal bar */
+    /*float: left; /* display the links as a horizontal bar */
     margin: 0;
     padding-right: 3px;
+    display: inline-block;
 }
 
 .links a { /* create boxes for the links and center their text within them */
@@ -175,4 +178,10 @@ li-span {
 
 .spacer {
   padding: 20px;  
+}
+
+.playPauseBtn {
+    border-radius: 12px;
+    padding: 10px;
+    background-color: #d3738f;
 }

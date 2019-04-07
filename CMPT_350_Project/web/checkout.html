@@ -27,7 +27,7 @@ and open the template in the editor.
                     <li><a href="index.html">Home</a></li>
                     <li id="selected"><a href="shop.html">Shop</a></li>
                     <li><a href="socialMedia.html">Social Media</a></li>
-                    <li><a href="forum.html">Forum</a></li>
+                    <li><a href="ForumPage.html">Forum</a></li>
                     <li><a href="about.html">About</a></li>
                 </ul>
             </div>
@@ -58,6 +58,8 @@ and open the template in the editor.
                         </li>
                     </ul>
                 </form>
+                
+                <p id ="reciept">test</p>
                 
             </div>
             
@@ -94,7 +96,7 @@ and open the template in the editor.
                 xhttp.onreadystatechange = function(){
                    if(this.readyState === 4 && this.status === 200){
                        // update page / display video game download code
-                       alert("test");
+                       document.getElementById("reciept").value = this.responseText;
                    }
                };
                

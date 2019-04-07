@@ -6,6 +6,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -70,8 +71,6 @@ public class CheckoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        System.out.println("test");
-        
         String firstName = request.getParameter("FNAME");
         String lastName = request.getParameter("LNAME");
         String country = request.getParameter("COUNTRY");
@@ -80,6 +79,8 @@ public class CheckoutServlet extends HttpServlet {
         String expDate = request.getParameter("EXPDATE");
         String cvv = request.getParameter("CVV");
         
+        String gameCode = UUID.randomUUID().toString();
+        
         System.out.println(firstName);
         System.out.println(lastName);
         System.out.println(country);
@@ -87,6 +88,20 @@ public class CheckoutServlet extends HttpServlet {
         System.out.println(cardNumber);
         System.out.println(expDate);
         System.out.println(cvv);
+        
+        System.out.println(gameCode);
+        
+        response.setContentType("text/html");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Reciept</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<p>" + firstName + "</p>");
+            out.println("</body>");
+            out.println("</html>");
+        }
         
     }
 

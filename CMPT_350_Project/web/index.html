@@ -13,6 +13,7 @@ and open the template in the editor.
     </head>
     
     <body>
+        
         <div class="container">
         
             <div class="banner">
@@ -32,7 +33,28 @@ and open the template in the editor.
                 </ul>
             </div>
             
-            <div class="content"></div>
+            <div class="content">
+                <h1>Check out our games</h1>
+                
+                <video id="gameVideo">
+                    <source src="images/games.mp4" type="video/mp4">
+                </video>
+                
+                <button onclick="playPause()" class="playPauseBtn">Play / Pause</button>
+            </div>
+            
+            <script>
+                var video = document.getElementById("gameVideo");
+                
+                function playPause() {
+                    if(video.paused) {
+                        video.play();
+                    }
+                    else {
+                        video.pause();
+                    }
+                }
+            </script> 
             
             <div class="push"></div>
         
