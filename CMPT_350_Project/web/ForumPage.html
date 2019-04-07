@@ -39,16 +39,12 @@ jQuery(document).ready(function(){
   });
   
   
- $('.list-group-item').on('click', function() {
-     
-    var $this = $(this);
-    var $alias = $this.data('alias');
-
-    $('.active').removeClass('active');
-    $this.toggleClass('active')
-
-    alert();
-   });
+  $('.list-group').on('click', '.list-group-item', function(event){ 
+      
+        alert($(this).text());
+      
+  }); 
+  
   
   // when ever the window is currently loaded or refreshed etc, this will refresh all data on that window.
   $(window).on("load", function () {
@@ -71,7 +67,7 @@ jQuery(document).ready(function(){
                     
                     // can I search by title? in herf?
                     // will need to split this string up later to add correct number of posts.
-                    $('.list-group').append("<a herf='#' class = 'list-group-item'><h4 class='list-group-item-heading'>"+titles[counter]+"</h4></a>");
+                  $("<a href= '#' class = 'list-group-item'><h4 class = 'list-group-item-heading'>"+titles[counter]+"</h4></a>").appendTo('#forumCluster');
                  }
                 
                 counter += 1; 
@@ -125,8 +121,11 @@ border-color: #2F3E48;
       
       <button type = "button" id = "newPostGD" class = "btn bnt-primary btn-md">create new post:</button>
       
-      
-      <div class = "list-group">          
+      <div></div>
+      <div id = forumCluster class = "list-group"> 
+          
+       <!-- <a href = '#pog' class= 'list-group-item'>Post1?</a> -->
+          
       </div>    
           
       
