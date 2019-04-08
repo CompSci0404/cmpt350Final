@@ -130,11 +130,29 @@ li-span {
 
 .gameCase {
     color: #ffffff;
-    padding: 30px;
+    background: #384263;
+    margin: auto;
+    display: block;
+    width: 50%;
+    text-align: center;
+}
+
+.gameCase:hover {
+    background: #506085;
+}
+
+.gameCase:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
 }
 
 .gameCase a {
     color: #ffffff;
+    text-align: left;
 }
 
 .gameCase a:hover {
@@ -184,4 +202,8 @@ li-span {
     border-radius: 12px;
     padding: 10px;
     background-color: #d3738f;
+}
+
+#reciept {
+    font-size: 50px;
 }

@@ -83,6 +83,7 @@ and open the template in the editor.
         <script type ="text/javascript">
         
             function confirmPurchase() {
+                // collect form data and pass it to the CheckoutServlet
                 var fName = document.getElementById("fName").value;
                 var lName = document.getElementById("lName").value;
                 var country = document.getElementById("country").value;
@@ -98,9 +99,23 @@ and open the template in the editor.
                 var xhttp = new XMLHttpRequest();
                 
                 xhttp.onreadystatechange = function(){
+                    var fName = document.getElementById("fName").value;
+                    var lName = document.getElementById("lName").value;
+                    var country = document.getElementById("country").value;
+                    var province = document.getElementById("province").value;
+                    var cardNumber = document.getElementById("cardNumber").value;
+                    var expDate = document.getElementById("expDate").value;
+                    var cvv = document.getElementById("cvv").value;
+                    
                    if(this.readyState === 4 && this.status === 200){
-                       // update page / display video game download code
-                       document.getElementById("reciept").innerHTML = this.responseText;
+                       // Ensure that every field of the form has been filled in
+                       if(fName==="" || lName==="" || country==="" || province==="" || cardNumber==="" || expDate==="" || cvv==="") {
+                           document.getElementById("reciept").innerHTML = "Please fill in all fields.";
+                       }
+                       else {
+                           // update page / display video game download code
+                           document.getElementById("reciept").innerHTML = this.responseText;
+                       }
                    }
                };
                
