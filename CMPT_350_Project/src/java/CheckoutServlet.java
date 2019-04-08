@@ -75,6 +75,7 @@ public class CheckoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // retrieve all of the request parameters from the webpage
         String firstName = request.getParameter("FNAME");
         String lastName = request.getParameter("LNAME");
         String country = request.getParameter("COUNTRY");
@@ -95,6 +96,7 @@ public class CheckoutServlet extends HttpServlet {
         byte[] expDateEncoded = Base64.encodeBase64(expDate.getBytes());
         byte[] cvvEncoded = Base64.encodeBase64(cvv.getBytes());
         
+        // test to see the encoded string
         System.out.println(new String(firstNameEncoded));
         System.out.println(new String(lastNameEncoded));
         System.out.println(new String(countryEncoded));
@@ -112,6 +114,7 @@ public class CheckoutServlet extends HttpServlet {
         byte[] expDateDecoded = Base64.decodeBase64(expDateEncoded);
         byte[] cvvDecoded = Base64.decodeBase64(cvvEncoded);
         
+        // test to see the decoded string
         System.out.println(new String(firstNameDecoded));
         System.out.println(new String(lastNameDecoded));
         System.out.println(new String(countryDecoded));
@@ -125,9 +128,9 @@ public class CheckoutServlet extends HttpServlet {
         response.setContentType("text/html");
         try (PrintWriter out = response.getWriter()) {
             Statement state = conn.createStatement();
-            
+            // insert the payment information into a SQL database
             state.execute("INSERT INTO "+ "purchaseInfo" +"(firstName, lastName, country, province, cardNumber, expDate, cvv) VALUES ('"+firstNameEncoded+"','"+lastNameEncoded+"','"+countryEncoded+"','"+provinceEncoded+"','"+cardNumberEncoded+"','"+expDateEncoded+"','"+cvvEncoded+"')");
-            
+            //display the game code to the user after the payment information has been processed
             out.println(gameCode);
         }   
         catch(Exception e) { 

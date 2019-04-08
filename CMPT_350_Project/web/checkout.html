@@ -22,6 +22,7 @@ and open the template in the editor.
                 <!-- a div used to display the webpage's banner image -->
             </div>
         
+            <!-- Navigation Bar -->
             <div class="links">
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -62,7 +63,7 @@ and open the template in the editor.
                 <h3>Your game code will be displayed below once your payment has been processed:</h3>
                 
                 <br>
-                
+                <!-- An empty paragraph used to display the game code once it's been purchased -->
                 <p id ="reciept"></p>
                 
             </div>
@@ -82,6 +83,7 @@ and open the template in the editor.
         
         <script type ="text/javascript">
         
+        // Collect the values entered into all of the form's fields and create a post request
             function confirmPurchase() {
                 // collect form data and pass it to the CheckoutServlet
                 var fName = document.getElementById("fName").value;
