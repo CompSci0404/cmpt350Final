@@ -33,11 +33,25 @@ and open the template in the editor.
       #location7 { position: absolute; visibility: visible; left: 130px; top: 400px; z-index: 200;}
 </style> 
   
+
+ <style id = "padding">
+  body {
+      position: relative; 
+  }
+  #section1 {padding-top:50px;height:500px;}
+  </style>
+  
     </head>
+    
     <body>
         
      
-        <div id = location4><img src="images/Gas_mask_by_CrimsonStar6.jpg" alt="Avatar" class="avatar"></div> 
+<!-- I used a scroll spy to seperate this piece from the rest underneath it. Just for spacing that is it.-->
+
+<div id="section1" class="container-fluid">
+ 
+
+ <div id = location4><img src="images/Gas_mask_by_CrimsonStar6.jpg" alt="Avatar" class="avatar"></div> 
         <div id = "location5"><small id="name">T</small></div>
         
         <div id="location2"><Label id = "title"><i><font size = "+3">title wow </font></i></Label></div>
@@ -48,38 +62,46 @@ and open the template in the editor.
         </div>
         
         <div id = "location3"><small id = "time"><b><i> Time Posted: </i></b></small></div>
+</div>  
         
-        <div id = location6><textarea class = "form-control" rows = "10" cols = "100" id = "comment"></textarea></div>
-        <div id = location7><button type = "button" id = "addComment" class = "btn bnt-primary btn-md">comment</button></div>
+        <div><textarea rows = "10" cols = "100" id = "comment"></textarea></div>
+        <div><button type = "button" id = "addComment" class = "btn bnt-primary btn-md">comment</button></div>
         
         
         <script>
       
     jQuery(document).ready(function() {
        
-       
-       
-       
+     
+ 
+     // when a new comment is made, we will send a post message to the serverlet.
     $('#addComment').on('click', function(){
-       var data = jQuery("#comment").val(); 
+        
+       var data = jQuery("#comment").val(); // grab data that is wanted to be commented. 
         
         
-        alert("whats in data:" + data); 
-        
-        $.post("addOntoPost?DATA=" + data, function(responseText){
+        if(data == "") { 
             
-            $('#comment').val(' '); 
+            alert("please enter a comment to add to the conversation!");    // all data entered correctly?
+            
+        }else {
+            $.post("addOntoPost?DATA=" + data, function(responseText){     // once successful add anons message to the top of the lists.
+                
+                
+                
+                $("#section1").after("<div><div><Label>Poster anon said:</Label></div><div><textarea class = 'form-control' rows= '6 cols = '100' readonly>"+ responseText +"</textarea></div></div>");
+
+                
+                
+            });
         
-        
-            alert("got some info: " + responseText);
-        
-        });
+        }
         
     });
         
         
         
-    $(window).on("load", function () {
+    $(window).on("load", function () {  // when window loads grab this pages content. Set all pieces in here so we can use it!
        
     
      //<a href = "#" class= "list-group-item">Post1?</a>
@@ -97,9 +119,38 @@ and open the template in the editor.
            
            
                 $.get('addOntoPost?TEST=' + 1, function(responseText) { 
-             
-             
-                    alert("we got the posts HERE:" + responseText); 
+                    var splitText = responseText.split('\n');
+                    var counter = 0; 
+                    
+                    
+                     while(counter < splitText.length) {    // need to split text up,
+                         var container = "#section"+(counter+1);
+                
+                        if(splitText[counter] !== '\n' && splitText[counter] !== '\r' && splitText[counter] !== ''){
+                            
+                            var nextSection = "section" + (counter + 2);
+                           // var cssLen = "Section" + ($('#padding').size()); 
+                          $("#section1").after("<div><div><Label>Poster anon said:</Label></div><div><textarea class = 'form-control' rows= '6 cols = '100' readonly>"+splitText[counter]+"</textarea></div></div>"); // create a new hmtl piece that I want to add underneath the original post. Add data in middel of it.
+                          
+                          
+                         // cont = container;
+                          
+                         // nextSec = nextSection;
+                          
+                          //$('#padding').append("#section"+cssLen+"{padding-top:50px;height:500px;}");
+
+                        }
+                        
+                         counter += 1; 
+                 }
+                
+               
+            
+            
+                    
+                    
+                    
+                    
              
                 }); 
         

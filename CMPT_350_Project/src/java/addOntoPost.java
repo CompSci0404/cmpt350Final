@@ -135,14 +135,18 @@ public class addOntoPost extends HttpServlet {
            if(ForumBoard.equals("GD")) { 
            
                  ResultSet rs = s.executeQuery("SELECT * FROM gdcomment");
-                
+                 int counter = 2; 
                   while(rs.next()) { 
                     
                
                     if(rs.getInt("gdpostNum") == uniqueNum) { 
                       
-                      text += rs.getString("posts"); 
+                   
+                        text += rs.getString("posts") + "\n"; 
+                        counter ++; 
                     }
+                    
+                    
                
                   }
                 
@@ -280,6 +284,8 @@ public class addOntoPost extends HttpServlet {
             }
             
         }
+        
+        
         
         }catch(Exception e) { 
             
