@@ -112,9 +112,7 @@ public class ForumManager extends HttpServlet {
             
             
             state.execute("INSERT INTO "+forumSelected+"(posts, postTime, name, title) VALUES ('"+post+"','"+date+ "','anon','"+title+"')");    // everything we want to the insert into the data base.
-                                                                                                                                                // we want post, a date, a name, and a title.
-            
-            
+                                                                                                                                                // we want post, a date, a name, and a title.            
             
             try(PrintWriter out = response.getWriter()){
                 

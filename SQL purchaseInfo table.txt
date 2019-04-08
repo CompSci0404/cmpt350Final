@@ -7,3 +7,12 @@ cardNumber VARCHAR(20),
 expDate VARCHAR(20),
 cvv VARCHAR(20)
 );
+
+
+#FOREIGN KEYS:
+# pa can be gd ttt or cc change as needed be for posts.
+create table PAcomment(posts LONGTEXT, name VARCHAR(50), papostNum int not null, FOREIGN KEY pa_post(papostNum) REFERENCES pa(postNum)); 
+
+#Primay KEY:
+
+CREATE TABLE PA(posts LONGTEXT, postTime DATETIME, name VARCHAR(50), title MEDIUMTEXT, postNum INT AUTO_INCREMENT PRIMARY KEY);

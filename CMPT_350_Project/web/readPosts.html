@@ -29,7 +29,8 @@ and open the template in the editor.
       #location3 { position: absolute; visibility: visible; left: 300px; top: 275px; z-index: 200;}
       #location4 { position: absolute; visibility: visible; left: 100px; top: 70px; z-index: 200;}
       #location5 { position: absolute; visibility: visible; left: 130px; top: 170px; z-index: 200;}
-      #location6 { position: absolute; visibility: visible; left: 130px; top: 170px; z-index: 200;}
+      #location6 { position: absolute; visibility: visible; left: 130px; top: 500px; z-index: 200;}
+      #location7 { position: absolute; visibility: visible; left: 130px; top: 400px; z-index: 200;}
 </style> 
   
     </head>
@@ -47,7 +48,9 @@ and open the template in the editor.
         </div>
         
         <div id = "location3"><small id = "time"><b><i> Time Posted: </i></b></small></div>
-        <div></div>
+        
+        <div id = location6><textarea class = "form-control" rows = "10" cols = "100" id = "comment"></textarea></div>
+        <div id = location7><button type = "button" id = "addComment" class = "btn bnt-primary btn-md">comment</button></div>
         
         
         <script>
@@ -57,7 +60,22 @@ and open the template in the editor.
        
        
        
-       
+    $('#addComment').on('click', function(){
+       var data = jQuery("#comment").val(); 
+        
+        
+        alert("whats in data:" + data); 
+        
+        $.post("addOntoPost?DATA=" + data, function(responseText){
+            
+            $('#comment').val(' '); 
+        
+        
+            alert("got some info: " + responseText);
+        
+        });
+        
+    });
         
         
         
@@ -76,9 +94,19 @@ and open the template in the editor.
             $('#time').text(titles[2]);
             $('#name').text(titles[3]);
            
+           
+           
+                $.get('addOntoPost?TEST=' + 1, function(responseText) { 
+             
+             
+                    alert("we got the posts HERE:" + responseText); 
+             
+                }); 
+        
    
          });
-        
+         
+       
         
         });
 

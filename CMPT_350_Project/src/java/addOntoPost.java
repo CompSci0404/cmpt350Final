@@ -13,8 +13,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import java.util.*; 
-import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +30,7 @@ public class addOntoPost extends HttpServlet {
     
     static String titleOfPost = null; 
     static String ForumBoard = null; 
+    static int uniqueNum = 0; 
     
     
     /**
@@ -73,6 +72,7 @@ public class addOntoPost extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+
         if(request.getParameter("TITLE") != null && request.getParameter("FORUM") != null) { 
             
             titleOfPost = request.getParameter("TITLE"); 
@@ -82,13 +82,27 @@ public class addOntoPost extends HttpServlet {
             
         }else { 
             
-            Connection conn = createConnection(); 
             
-            try(PrintWriter out = response.getWriter()) { 
+            if(request.getParameter("TEST") != null) { 
+                
+                Connection  conn = createConnection(); 
+                
+                try(PrintWriter out = response.getWriter()) { 
                  
-                out.println(returnData(conn));
+                    out.println(returnComments(conn));
                
                 
+                }
+                
+            }else {
+                Connection conn = createConnection(); 
+            
+                try(PrintWriter out = response.getWriter()) { 
+                 
+                    out.println(returnData(conn));
+               
+                
+                }
             }
             
         }
@@ -98,26 +112,86 @@ public class addOntoPost extends HttpServlet {
         
     }
     
+    /**
+     * returnComments(Connection)
+     * 
+     * returns all the comments made on this forum page.
+     * @param conn a connection to the desired MYSQL data base.
+     * @return returns a html styled string that will be inserted into the webpage!
+     */
     
+    static String returnComments(Connection conn) {
+        
+           String text = ""; 
+
+        try{
+            
+           
+           
+           Statement s = conn.createStatement(); 
+           
+           
+            
+           if(ForumBoard.equals("GD")) { 
+           
+                 ResultSet rs = s.executeQuery("SELECT * FROM gdcomment");
+                
+                  while(rs.next()) { 
+                    
+               
+                    if(rs.getInt("gdpostNum") == uniqueNum) { 
+                      
+                      text += rs.getString("posts"); 
+                    }
+               
+                  }
+                
+            }
+           
+        
+           
+           
+           
+        }catch(Exception e) { 
+            
+            
+            System.err.println("error occured:" + e);
+        }
+        
+        
+        return text;
+    }
+    
+    
+    /**
+     * returns all the data from the main post, or HEAD post. this is what the user sees when they click on a post in the 
+     * category that they are searching in. It is the head post.
+     * 
+     * @param conn
+     * @return 
+     */
     static String returnData(Connection conn) { 
         
         String content = "";
        
         try{
             
+            
         
             Statement state = conn.createStatement(); 
         
             ResultSet rs = state.executeQuery("SELECT * FROM " + ForumBoard);
                     
-            
+          
           
           while(rs.next()) { 
-              
-              
-             if(titleOfPost.equals(rs.getString("Title"))){ 
-                 
+             
+             if(titleOfPost.equals(rs.getString("Title"))){  // find the title within the category, once we find it then we can send this data back.
+                
+                 uniqueNum = rs.getInt("postNum");          // aquire primary number for this item.
+                 System.out.println("Number: " + uniqueNum);
                  content += rs.getString("Title") + "_" + rs.getString("posts") + "_" + rs.getString("postTime")+ "_"+rs.getString("name") ; 
+                 // send all this data back so we can easliy cut this string and send it to the correct locations.
                  
              
              }
@@ -125,6 +199,8 @@ public class addOntoPost extends HttpServlet {
               
               
           }
+          
+          
             
         }catch(Exception e) { 
             
@@ -149,11 +225,74 @@ public class addOntoPost extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        
-        
+                
+         Connection conn = createConnection();  // new creation created. 
+            
+         
+        try{
+            
+            String content = request.getParameter("DATA"); // grab the data that the user wants to post.
+            
+            
+            try(PrintWriter out = response.getWriter()) {  //once data is done being processed into the DATA base, we will send it to the serverlet.
+                 
+                out.println(postComments(conn, content));
+               
+                
+            }
+
+            
+        }catch(Exception e){
+            
+            System.err.println("error has been caught:" + e);
+        }
         
     }
     
+    
+    /**
+     * 
+     * postComments(conn, data):
+     * 
+     * stores the correct posts for the correct Parent post.
+     * @param  conn: the connection to the mysql data base.
+     * @param data: the data that we want to store into the mysql data base.
+     * @return returns a string containing posted data.
+     */
+    public static String postComments(Connection conn, String data) { 
+      
+        try{
+            
+        Statement s = conn.createStatement();
+        ResultSet rs = s.executeQuery("SELECT * FROM " + ForumBoard);
+        
+        
+        while(rs.next()) { 
+            
+            if(rs.getString("title").equals(titleOfPost)) { 
+                
+                if(ForumBoard.equals("GD")) { 
+                    //System.out.println("made it in here!" + rs.getInt("postNum"));
+                    s.execute("INSERT INTO gdcomment(posts, name, gdpostNum) VALUES ('"+data+"', 'anon',"+rs.getInt("postNum") +")"); // insert this data into the GDcomments tabel, basically a place to store all data here.
+                       
+                }
+                
+            }
+            
+        }
+        
+        }catch(Exception e) { 
+            
+            
+            System.err.println("error has been thrown:" + e);
+        }
+        
+        
+        
+       
+        return data; 
+      
+    }
     
     
     /**
