@@ -150,6 +150,64 @@ public class addOntoPost extends HttpServlet {
                
                   }
                 
+            } else if(ForumBoard.equals("TTT")) { 
+                
+                 ResultSet rs = s.executeQuery("SELECT * FROM tttcomment");
+                 int counter = 2; 
+                 
+                  while(rs.next()) { 
+                    
+               
+                    if(rs.getInt("tttpostNum") == uniqueNum) { 
+                      
+                   
+                        text += rs.getString("posts") + "\n"; 
+                        counter ++; 
+                    }
+                    
+                    
+               
+                  }
+                
+            } else if (ForumBoard.equals("CC")) { 
+                
+                  ResultSet rs = s.executeQuery("SELECT * FROM cccomment");
+                 int counter = 2; 
+                 
+                  while(rs.next()) { 
+                    
+               
+                    if(rs.getInt("ccpostNum") == uniqueNum) { 
+                      
+                   
+                        text += rs.getString("posts") + "\n"; 
+                        counter ++; 
+                    }
+                    
+                    
+               
+                  }
+                
+                
+            } else if (ForumBoard.equals("PA")) { 
+                
+                   ResultSet rs = s.executeQuery("SELECT * FROM pacomment");
+                 int counter = 2; 
+                 
+                  while(rs.next()) { 
+                    
+               
+                    if(rs.getInt("papostNum") == uniqueNum) { 
+                      
+                   
+                        text += rs.getString("posts") + "\n"; 
+                        counter ++; 
+                    }
+                    
+                    
+               
+                  }
+                
             }
            
         
@@ -279,6 +337,19 @@ public class addOntoPost extends HttpServlet {
                     //System.out.println("made it in here!" + rs.getInt("postNum"));
                     s.execute("INSERT INTO gdcomment(posts, name, gdpostNum) VALUES ('"+data+"', 'anon',"+rs.getInt("postNum") +")"); // insert this data into the GDcomments tabel, basically a place to store all data here.
                        
+                } else if(ForumBoard.equals("TTT")) { 
+                    
+                    
+                    s.execute("INSERT INTO tttcomment(posts, name, tttpostNum) VALUES ('"+data+"', 'anon',"+rs.getInt("postNum") +")"); // insert this data into the GDcomments tabel, basically a place to store all data here.
+                    
+                } else if(ForumBoard.equals("CC")) {
+                    
+                      
+                    s.execute("INSERT INTO cccomment(posts, name, ccpostNum) VALUES ('"+data+"', 'anon',"+rs.getInt("postNum") +")"); // insert this data into the GDcomments tabel, basically a place to store all data here.
+                }else if(ForumBoard.equals("PA")) { 
+                    
+                    s.execute("INSERT INTO pacomment(posts, name, papostNum) VALUES ('"+data+"', 'anon',"+rs.getInt("postNum") +")"); // insert this data into the GDcomments tabel, basically a place to store all data here.
+
                 }
                 
             }
